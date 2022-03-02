@@ -1,2 +1,2 @@
-# exercicios-python
- Exercícios que fiz usando a lingaugem Python.
+# python-exercises
+ A couple of the exercises I did using Python.
