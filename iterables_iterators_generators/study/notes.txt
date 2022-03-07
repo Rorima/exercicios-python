@@ -1,0 +1,24 @@
+-What is an iterable?
+An iterable is simply what can be looped over. A list is iterable.
+
+
+-How can we tell if something is iterable?
+If something is iterable, it needs to have a special method called __iter__(). You can know if an object has the __iter__() method either by using print(dir(objectname)), which will give you a list of all the methods you can use on that particular object; or print(object.__iter__()), which will display an error message if the object is not iterable.
+print(iter([1, 2, 3]))
+
+*
+-What is an iterator?
+An iterator has a state where it knows where it is during an iteration. They also know how to get their next value. If something is an iterator, it needs a special method called __next__(). However, we tend not to use dunder methods like this, because we have the functions that use them, which are next() (for generators) and iter() (for iterables). Iterators are also iterables, so they have the iter() method. Iteratos can only go forward.
+
+nums = [1, 2, 3]
+i_nums = iter(nums)
+
+print(next(i_nums))
+print(next(i_nums))
+print(next(i_nums))
+
+However, if you try like in the example below, it will not work:
+
+print(next(iter(nums)))
+print(next(iter(nums)))
+print(next(iter(nums)))
