@@ -1,0 +1,60 @@
+The end is the beginning.
+
+#
+If you have a function and you try to reach for a global variable, you can do that, but the opposite is not valid. If, from a global scope, you try to access a local variable, you'll receive an error.
+
+How function variables work:
+What happens is that when you try to access a variable from a function, it will try first to find it in the local scope, then in the enclosing, then in the global, and finally in the built-in scope. 
+
+If the variable is present in the local scope, you can use it freely without affecting variables in the other scopes, even if the variables inside and outside the local scope have the same name.
+
+If I have a variable in the local scope with the same name of another scope's variable, the value that the function will use  will be the local scope's.
+
+Example:
+
+x = 'global x'
+
+def test():
+    x = 'local x'
+    print(x)
+
+Result:
+local x
+
+But what if we wanted to set a new value for that global variable from within the test function? In that case, we can explicitly tell Python that the variable we want to work with, is the global, by typing global before the variable.
+
+Exemple:
+x = 'global x'
+
+def test():
+    global x
+    x = 'local x'
+    print(x)
+
+print(x)
+
+Result:
+local x
+local x
+
+I can do the same thing with nested functions. If I want to use the variable of an enclosing function, istead of using the global keyword, I use the nonlocal, and this keyword will tell Python that I want to work with the variable from the enclosing function.
+
+
+
+#
+LEGB - Local, Enclosing, Global, Built-in
+
+* Local - Local variables are variables defined within a function.
+
+* Enclosing - Enclosing variables are variables in the local scope of enclosing functions.
+
+* Global - Global variables are variables defined at the top level of a module, or explicitly declared global, using the global keyword.
+
+* Built-in - Built-in are just names that are pre-assigned in Python.
+
+The reason why the abreviation is in this order is because this is the order that determines what a variable is assigned to. Python first checks the variables in the local scope, then the enclosing scope, and so on.
+
+
+
+#
+Variable scope is what determines where our variables can be accessed from within the program, and what values these variables hold in different contexts.
