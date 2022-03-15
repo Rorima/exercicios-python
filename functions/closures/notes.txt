@@ -1,0 +1,14 @@
+By definition, a closure is a nested function that references one or more variables from its enclosing scope. A closure only happens in a nested function.
+
+Example of a closure:
+
+def say():
+    greeting = 'Hello'
+
+    def display():
+        print(greeting)
+
+    display()
+
+
+By default, a free variable, i.e. a variable from the enclosing scope, is read only, and can't be modified, except when explicitly stated by the keyword nonlocal.
