@@ -1,0 +1,10 @@
+###
+First Class Function.
+
+A first class function is a function that can be passed as an argument to other functions, can be returned from other functions, and also be assigned to variables. A HOF is a First Class Function.
+
+
+#
+Higher Order Functions:
+
+A HOF is a function that either accepts a function as an argument or returns a function. This is allowed in Python because functions are also treated as objects.
