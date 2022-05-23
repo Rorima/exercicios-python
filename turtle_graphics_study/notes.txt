@@ -1,0 +1,126 @@
+Course
+https://www.youtube.com/watch?v=pxKu2pQ7ILo&t=102s&ab_channel=KeithGalli
+
+Documentation
+https://docs.python.org/3/library/turtle.html#
+
+
+THE END IS THE BEGINNING
+#
+Changing position:
+
+object.goto(x, y)
+
+If you don't use the penup() method, the turtle will go to the desired position, but will draw while going there.
+
+
+
+#
+Speed:
+
+object.speed(integer_value_from_1_to_10)
+
+If the speed is greater than 10 or less than 0.5, the speed becomes 0. 0 means that there'll be no animation. The turtle is going to move instantly.
+
+
+
+#
+Turning by angles:
+
+Turn by degrees.
+
+object.setheading(degrees)
+
+On standard mode:
+0 - east
+90 - north
+180 - west
+270 - south
+
+
+
+#
+Pen up and pen down:
+
+It's used to move the cursor without drawing on the screen.
+
+object.penup()
+object.pendown()
+
+
+
+#
+Colors:
+
+*
+Changing the outline color:
+
+object.color('color_name')
+
+Hex values are also accepted.
+
+
+
+*
+Chaging the background color:
+
+turtle.bgcolor('color_name')
+
+This one has to be turtle instead of the instantiated object, otherwise the backgorund color will not be changed.
+
+
+
+*
+Inside color:
+
+These two methods are used to fill a geometrical shape with a color. The begin_fill goes before all the orders to move, and the end_fill goes after all orders.
+
+...
+object.begin_fill()
+for _ in range(4):
+    object.forward(100)
+    object.right(90)
+object.end_fill()
+...
+
+The color is filled automatically with the outline color, but if you want to change that, simply add another argument with the color you want in the color() method.
+
+Example:
+...
+ron.color('blue', 'cyan')  # The first color is for the outline, the second is for the filling
+
+ron.begin_fill()
+for _ in range(4):
+    ron.left(90)
+    ron.forward(100)
+ron.end_fill()
+...
+
+
+
+#
+Directions:
+
+object.forward(pixels)
+object.back(pixels)
+object.left(degrees) 
+object.right(degrees)
+
+
+
+#
+Creating a drawing object:
+
+This will create the object that will do the drawing.
+
+Example:
+import turtle
+bob = turtle.Turtle()
+turtle.done()
+
+
+
+#
+Ending the program:
+
+It's important to always end your turtle programs with turtle.done(). This keeps the screen open. You can already make a window appear by using this command.
