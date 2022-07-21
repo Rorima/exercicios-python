@@ -1,0 +1,82 @@
+https://www.pythontutorial.net/python-basics/python-write-text-file/
+
+Steps for writing to text files:
+
+- First, open the text file for writing (or appending) using the open() function.
+
+- Second, write to the text file using the write() or writelines() method.
+
+- Third, close the file using the close() method.
+
+Sintax:
+```
+f = open(path_to_file, mode)
+```
+
+For writing to a text file, you use on of the following modes:
+'w': open a text file for writing text;
+'a': open a text file for appending text;
+
+
+
+*
+Writing text files:
+
+The open() function returns a file object. The file object has two useful methods for writing text to it: write() and writelines().
+
+The write() method writes a string to a text file, and the writelines() method writes a list of strings to a file at once.
+
+To write a line to a text file, you need to manually add a new line character:
+
+```
+f.write('\n')
+f.writelines('\n')
+```
+
+
+*
+Adding linebreaks:
+
+If you want, you can add linebreaks with a for loop:
+
+```
+lines = ['Readme', 'How to write text files in Python']
+with open('readme.txt', 'w') as f:
+    for line in lines:
+        f.write(line)
+        f.write('\n')
+```
+
+or
+
+```
+sentences = ["This is just a test", "And this should be the second line", "And this, the third"]
+
+with open("readme.txt", 'w') as f:
+    f.write("\n".join(sentences))
+```
+
+
+
+*
+Appending text files:
+To append to a text file, you need to open the text file with the appending mode. The following example appends new lines to the readme.txt file:
+
+```
+more_lines = ['', 'Append text files', 'The End']
+with open('readme.txt', 'a') as f:
+    f.writelines('\n'.join(more_lines))
+```
+
+
+*
+Writing UTF-8 characters:
+
+If you want to write UTF-8 characters, you'll need to add the encoding keyword argument:
+
+```
+quote = 'japanese text'
+
+with open('quites.txt', 'w', encoding='utf-8') as f:
+    f.write(quote)
+```
