@@ -1,0 +1,34 @@
+#
+seek
+
+The seek() function is used to change the position of the File Handle to a given specific position. The File Handle is like a cursor, which defines from where the data has to be read or writter in the file.
+
+Syntax: f.seek(offset, from_what), where f is file pointer
+Parameters:
+offset: Number of positions to move forward
+from_what: it defines the point of reference
+Returns: The new absolute position
+
+The reference point is selected by the from_what argument. It accepts three values:
+
+0: Sets the reference point at the beginnig of the file;
+1: Sets the reference point at the current file position;
+2: Sets the reference point at the end of the file.
+
+```
+
+```
+
+
+#
+tell
+
+The tell() method can be used to get the position of the File Handle. The tell() method returns the current position of the file object. This method takes no parameters and returns an integer value. Initally, the ifle pointer points to the beginning of the file (if not opened in append mode), so the inital value of tell() is zero.
+
+```
+with open("notes7.txt", 'r') as f:
+    print(f.tell())
+    print(f.readline())
+    print(f.readline())
+    print(f.tell())
+```
