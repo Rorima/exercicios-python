@@ -1,0 +1,14 @@
+Check if file exists:
+You can use the os.path.exists() function to check if
+a file exists. First, import it from the os.path:
+
+```
+from os.path import exists
+```
+
+Then check if the file exists:
+
+```
+file_exists = exists(path_to_file)
+```
+
