@@ -1,0 +1,5 @@
+https://www.pythontutorial.net/python-basics/python-create-text-file/
+Create a text file:
+You can open the file using the 'w' mode. If the file doesn't exist, the open() function creates a new file. Otherwise, it'll overwrite the contesnts of the existing file.
+
+'x' - open a file for exclusive creation. If the file exists, the open() function raises an error (FileExistsError). Otherwise, it'll create the file.
