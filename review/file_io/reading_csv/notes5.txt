@@ -1,0 +1,93 @@
+https://www.pythontutorial.net/python-basics/python-read-csv-file/
+
+
+
+
+What is a CSV file:
+A CSV file is a delimited text file that uses a comma to separate values. It consists of one or more lines. Each line is a data record. And each data record consists of one or more values separated by commas. In addition, all the lines of a CSV file have the same number of values. Typically, you use a csv file to store tabular data in plain text.
+
+
+
+Read CSV file:
+
+First, import the csv module:
+```
+import csv
+```
+
+Second, open the csv file. If it contains UTF-8 characters, you need to specify the encoding:
+```
+f = open ('path/to/csv_file', encoding='UTF8')
+```
+
+Third, pass the file object (f) to the reader() function of the csv module. The reader() function returns a csv reader object:
+```
+csv_reader = csv.reader(f)
+```
+
+The csv_reader is an iterable object of lines from the CVS file. Therefore, you can iterate over the lines of the csv file using a for loop. Each line is a list of values.
+```
+for line in csv_reader:
+    print(line)
+```
+
+Finally, don't forget to close the file:
+```
+f.close()
+```
+
+Complete code:
+
+```
+import csv
+
+with open("countries.csv", 'r') as f:
+    csv_reader = csv.reader(f)
+    counter = 0
+    for line in csv_reader:
+        counter += 1
+        print(f"Line: {counter}:", line)
+```
+
+
+
+*
+Reading a CSV file using the DictReader class:
+The DictReader class allows you to create an object like a regular CSV reader. But it maps the information of each line to a dictionary whose keys are specified by the values of the first line.
+
+By using the DictReader class, you can access values in the country.csv file like line['name'], line ['area'], line['country_code2'], and line ['country_code3'].
+
+Ex.:
+```
+from csv import DictReader
+
+with open("countries.csv") as f:
+    csv_reader = DictReader(f)
+    for line in csv_reader:
+        print(f"Country: {line['Country']}")
+        print(f"Language: {line['Language']}")
+        print(f"Food: {line['Food']}")
+        print()
+```
+
+
+
+*
+Fieldnames:
+
+If you want to have different field names other than the ones specified in the first line, you can explicitly specify them by passing a list of field names to the DictReader() constructor like this:
+
+```
+import csv
+
+fieldnames = ['cntry', 'lang', 'fd']
+
+with open('countries.csv') as f:
+    csv_reader = csv.DictReader(f, fieldnames)
+    next(csv_reader)
+    for line in csv_reader:
+        print(f"Country: {line['cntry']};")
+        print(f"Language: {line['lang']};")
+        print(f"Food: {line['fd']};")
+        print()
+```
