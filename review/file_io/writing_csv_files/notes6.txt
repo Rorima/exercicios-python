@@ -1,0 +1,99 @@
+Steps for writting a CSV file:
+ - First, open the CSV file for writing (w mode) by using the open() function;
+ - Second, create a CSV writer object by calling the writer() function of the csv module;
+ - Third, write data to CSV file by calling the writerow() or writerows() method fo the CSV writer object;
+ - Finally, close the file once you complete writing data to it.
+
+Code to illustrate:
+```
+import csv
+
+# open the file in the write mode
+with open('path/to/csv_file', 'w', encoding='UTF8') as f:
+    # create the csv writer
+    writer = csv.writer(f)
+
+    # write a row to the csv file
+    writer.writerow(row)
+```
+
+
+
+*
+Writing to CSV files example:
+```
+import csv
+
+header = ['name', 'area', 'country_code2', 'country_code3']
+data = ['Afghanistan', 652090, 'AF', 'AFG']
+
+with open('countries.csv', 'w', encoding='UTF8', newline='') as f:
+    write = csv.writer(f)
+    write.writerow(header)
+    write.writerow(data)
+```
+
+The newline keyword argument is necessary. Otherwise there would be a blank line between two subsequent rows.
+
+
+
+*
+Writing multiple rows to CSV files:
+
+```
+import csv
+
+header = ['name', 'area', 'country_code2', 'country_code3']
+data = [
+    ['Albania', 28748, 'AL', 'ALB'],
+    ['Algeria', 2381741, 'DZ', 'DZA'],
+    ['American Samoa', 199, 'AS', 'ASM'],
+    ['Andorra', 468, 'AD', 'AND'],
+    ['Angola', 1246700, 'AO', 'AGO']
+]
+
+with open('countries.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    
+    writer.writerow(header)
+    
+    writer.writerows(data)
+
+```
+
+Use the writerows method if you have a list with other lists inside.
+
+
+
+*
+Writing to CSV files using the DictWriter class:
+
+If each row of the CSV file is a dictionary, you can use the DictWriter class of the csv module to write the dictionary to the CSV file.
+
+```
+import csv
+
+# csv header
+fieldnames = ['name', 'area', 'country_code2', 'country_code3']
+
+# csv data
+rows = [
+    {'name': 'Albania',
+    'area': 28748,
+    'country_code2': 'AL',
+    'country_code3': 'ALB'},
+    {'name': 'Algeria',
+    'area': 2381741,
+    'country_code2': 'DZ',
+    'country_code3': 'DZA'},
+    {'name': 'American Samoa',
+    'area': 199,
+    'country_code2': 'AS',
+    'country_code3': 'ASM'}
+]
+
+with open('countries.csv', 'w', newline='') as f:
+    writer = csv.DictWriter(f, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerows(rows)
+```
