@@ -1,0 +1,34 @@
+I'll try to learn how to add sounds to tkinter.
+
+#
+1.
+First, create a window and initialize pygame:
+```
+import pygame
+import tkinter as tk
+
+# Initializing pygame
+pygame.mixer.init()
+
+window = tk.Tk()
+
+
+window.mainloop()
+```
+
+2.
+Create a function to play the sound. You'll need to load the sound, and then play it. This is the funciton:
+```
+def play():
+    pygame.mixer.music.load("duck.mp3")
+    pygame.mixer.music.play(loops=0)
+```
+
+Remember that the sound should be in the same folder, or you'll have to type the full path to the file.
+
+3.
+Create a button and assign the function to it:
+```
+b = tk.Button(window, text="Quack", font=("times new roman", 50, "bold"), command=play)
+b.pack(expand=True)
+```

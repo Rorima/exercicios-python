@@ -1,0 +1,21 @@
+Create a stopwatch that grabs the time from the PC. 
+
+How about no buttons? Click once to start or pause, click twice to reset.
+
+Materials used:
+https://www.youtube.com/watch?v=Qj3GlL5ckQA&t=3s&ab_channel=BroCode
+https://stackoverflow.com/questions/27719361/float-formatting-in-python
+https://docs.python.org/2/library/stdtypes.html#string-formatting
+https://www.delftstack.com/howto/python/python-format-float-to-string/
+https://www.color-hex.com/
+https://www.tutorialspoint.com/list-of-all-tkinter-events
+https://tkdocs.com/shipman/event-modifiers.html
+https://tkdocs.com/shipman/event-types.html
+https://tkdocs.com/shipman/event-sequences.html
+https://tkdocs.com/shipman/
+https://stackoverflow.com/questions/15753793/how-to-bind-spacebar-key-to-a-certain-method-in-tkinter-python
+https://www.geeksforgeeks.org/python-program-to-convert-seconds-into-hours-minutes-and-seconds/
+https://www.w3schools.com/python/ref_func_round.asp
+https://stackoverflow.com/questions/46140602/tkinter-grid-position-in-center-of-screen
+https://www.pythontutorial.net/tkinter/tkinter-grid/
+

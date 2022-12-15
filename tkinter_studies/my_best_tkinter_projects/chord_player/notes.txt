@@ -1,0 +1,26 @@
+Create a simple chord player with 7 chords.
+
+NO
+The user can choose to press a key or click on the 
+chord they want.
+
+You can get the frequencies from a tone generator online.
+https://www.szynalski.com/tone-generator/
+
+Record a couple of seconds for each chord and add them to the
+program.
+
+The chord will be played while the user is keeping the key pressed.
+If the user releases the key, the chord should stop playing.
+
+Inversions? NO
+
+Materials used:
+https://www.codespeedy.com/detect-keypress-in-tkinter-in-python/
+https://tkdocs.com/shipman/event-types.html
+https://tkdocs.com/shipman/key-names.html
+https://tkdocs.com/shipman/grid-methods.html
+https://tkdocs.com/shipman/frame.html
+https://tkdocs.com/shipman/grid-config.html
+https://www.youtube.com/watch?v=GLnNPjL1U2g&ab_channel=Codemy.com
+https://www.w3schools.com/python/python_ref_string.asp

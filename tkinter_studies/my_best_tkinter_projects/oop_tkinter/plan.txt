@@ -1,0 +1,14 @@
+My main objective with this is to learn how to create OOP programs using Tkinter. So far pretty much all of my programs are made in procedural, and for some of them I have to use global variables, which I heard is the worst thing.
+
+
+Notes:
+You can choose to put the root.mainloop() inside or outside of the class.
+
+Use self for everything you're going to change inside your program.
+
+
+Material studied:
+https://www.youtube.com/watch?v=Jl1xsH6MR1g&ab_channel=Codemy.com
+https://www.youtube.com/watch?v=RkaekNkIKNY&ab_channel=EssentialEngineering
+https://www.youtube.com/watch?v=eXunJhOpCRw&ab_channel=JohnPhilipJones
+https://www.pythontutorial.net/tkinter/tkinter-object-oriented-window/

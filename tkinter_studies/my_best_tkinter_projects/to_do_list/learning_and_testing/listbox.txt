@@ -1,0 +1,10 @@
+If you want to add the item to the end, simple type END on the index when you're inserting a new item.
+
+Adding a list of items to the listbox:
+```
+my_list = ["one", "two", "three"]
+for item in my_list:
+    my_listbox.insert("end", item)
+```
+
+Remember that the listbox is like a python list, so its index starts at 0.

@@ -1,0 +1,7 @@
+Create a simple clock that grabs the current time from your PC. This will be a training to create a stopwatch in the future.
+
+
+Materials used:
+https://www.geeksforgeeks.org/get-current-date-and-time-using-python/
+https://colors-picker.com/hex-color-picker/
+https://www.geeksforgeeks.org/python-after-method-in-tkinter/

@@ -1,0 +1,30 @@
+DONE
+1. Two sounds. One for the accent, one for the normal beep;
+
+DONE
+2. The after function to play the sound at the chosen tempo;
+
+DONE
+3. Maybe a sliding bar to choose at what tempo to beep;
+
+DONE
+4. There should be a number upon the the sliding bar that counts the tempo.
+
+DONE
+5. Possibility of choosing 3/4 and so on;
+
+DONE
+6. A button to start and stop. When the button is clicked, the text change. If it's start, it changes to stop, if it's stop, it changes to start.
+
+DONE
+7. From 30 to 240 bpm
+
+NO...
+8. An option to add or remove the accented beat.
+
+DONE
+9. Think about the layout.
+
+Inspiration:
+https://online-metronome.org/pt/
+https://www.musicca.com/metronome

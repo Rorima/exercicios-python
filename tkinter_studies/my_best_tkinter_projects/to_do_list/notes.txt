@@ -1,0 +1,28 @@
+A to do list program that let's you check or uncheck activities added by yourself.
+
+What it should have:
+Option to create more activities to check;
+    Maybe a box with a text input can appear if the user clicks this option. There will be a little input box and two buttons: save and cancel.
+
+The user has to be able to add as many items as he wishes, which means that you'll have to find a way to scroll down and show the other items;
+
+Option to delete items;
+
+DISCARTED
+A message box pops asking if the user really wants to delete an item;
+
+DISCARTED
+A little button that opens a new window and show how the program works?
+
+
+Materials used:
+https://www.youtube.com/watch?v=wEv3BworNK8&ab_channel=Codemy.com
+https://www.youtube.com/watch?v=8ijKnxkaoHE&ab_channel=Codemy.com
+https://tkdocs.com/shipman/listbox.html
+https://www.w3schools.com/python/ref_set_discard.asp
+https://stackoverflow.com/questions/36914176/changing-colour-of-item-in-tkinter-listbox
+https://stackoverflow.com/questions/36914176/changing-colour-of-item-in-tkinter-listbox
+https://www.youtube.com/watch?v=qC3FYdpJI5Y&t=233s&ab_channel=Codemy.com
+https://www.tutorialspoint.com/python/tk_listbox.htm
+https://stackoverflow.com/questions/38801019/how-to-set-focus-in-tkinter-entry-box
+https://www.pythontutorial.net/tkinter/tkinter-event-binding/

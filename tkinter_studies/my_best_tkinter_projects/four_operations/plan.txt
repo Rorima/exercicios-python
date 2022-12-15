@@ -1,0 +1,14 @@
+Create a program where the user is challanged in the four basic math operations: addition, subtraction, multiplication and division. The user can choose which one he wants to train, and the level as well. There'll be five levels: easy (1 digit), medium (2 digits, but all expression numbers should be under 20), hard (2 digits), advanced (3 digits) and expert (4+ digits).
+
+The user should be greeted with a screen with four buttons, which will be the buttons of the operations. There should be an image with the symbol of the operation, and then the name of the operation on each button.
+
+After the user chooses a button, there should appear a screen with the five levels for the user to choose. As soon as the user chooses a level, the expression should appear on the screen.
+
+There should be a button where the user can click and the result will be shown. This isn't a program to test the if the user is right or wrong, rather, it is a program that gives random expressions to them, and show their answer.
+
+After the answer is shown, the user can click on the same button to show another expression. There should be a back button, where the user can go back to the levels, and go back again to the main menu with the four operations.
+
+Materials used:
+https://stackoverflow.com/questions/70165908/how-to-switch-screens-using-tkinter
+https://tkdocs.com/shipman/button.html
+https://www.geeksforgeeks.org/python-add-image-on-a-tkinter-button/

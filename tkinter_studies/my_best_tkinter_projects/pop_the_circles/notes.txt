@@ -1,0 +1,25 @@
+Create a game where circles appear randomly on the screen and the user has to pop them. There's a score for how many circles the user clicked. There should be a sound for each circle poped.
+
+# DISCARTED
+Improvement: The circles are timed and they'll disappear automatically in a couple of seconds if the user does not click them. The closer to the time of appearing the user clicks on the circle, the greater the score points the user gets.
+
+# CHANGED
+Improvement: There's a red circle that appears randomly. If the user clicks it, the game ends. The user has to wait until this circle disappear.
+
+Tutorial on how to create ovals:
+https://www.askpython.com/python-modules/tkinter/tkinter-create-oval
+
+#
+Creating fixed size circles:
+
+Find the x and y of the starting point of your circle and on the next x and y add to the diameter you want:
+```
+# where I want to place it on the horizontal axis
+x=200
+# where I want to place it on the vertical axis
+y=50
+# the size of the circle in pixels
+diameter=100
+
+canvas.create_oval(x, y, x+diameter, y+diameter)
+```

@@ -1,0 +1,6 @@
+﻿USE THE PAUSE.PY AND APPLY IT TO CRONOMETRO.PY, THEN CLEAN AND DOCUMENT THE CODE.
+
+Learn generators.
+
+If the number is less than 10, place string with the number 0 in front of the number.
+
