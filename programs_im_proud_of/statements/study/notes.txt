@@ -1,0 +1,22 @@
+TODO:
+
+It has to create a file for the month. Check the time module notes you made.
+
+Should I make an abstraction to work with text files more easily?
+
+A report of all the withdraws for this month
+A report of all the deposits for this month
+
+
+Creating and adding to files:
+Check if today's file has been created. If it has not, create it. If it has been created, simply add the current entry into today's file. Don't forget to read the previous sum, and sum the entry with the previous sum.
+
+Weekly and monthly statements:
+Grab the last thirty or seven day statements and make one with all of the information. If the files don't exist yet, grab the ones that exist so far and ignore the others.
+
+Helpful links:
+Check if file exists:
+https://www.pythontutorial.net/python-basics/python-check-if-file-exists/
+
+Write csv:
+https://www.pythontutorial.net/python-basics/python-write-csv-file/
