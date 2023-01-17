@@ -1,0 +1,2177 @@
+The end of this file is the beginning. This file is not meant to teach anything to anyone. It's simply the notes that I took while I was going through the course. Some of the programs may not work properly because I might have renamed some folders. The relative paths might not be correct as well because VS Code projects use the path of the folder the project was created in, not the folder the file is in.
+
+
+https://www.youtube.com/watch?v=TuLxsvK4svQ&ab_channel=BroCode
+FINISHED!!!
+
+
+#
+Multiple Animations
+
+1.
+Create a window, a canvas, two constants for the height and width, and pack it to the screen:
+```
+WIDTH = 500
+HEIGHT = 500
+
+window = tk.Tk()
+
+canvas = tk.Canvas(window, width=WIDTH, height=HEIGHT)
+canvas.pack()
+
+window.mainloop()
+```
+
+2.
+Since we're going to be creating multiple objects, it's best if we do this with a class. Create a new file and write a Ball class:
+```
+class Ball:
+    def __init__(self, canvas, x, y, diameter, xvelocity, yvelocity, color):
+        pass
+```
+We're asking for the canvas, the x and y coordinates, which will be where the ball is going to start, the diameter of the ball, the x and y velocities and the color.
+
+3.
+Write down the body of the class:
+```
+class Ball:
+    def __init__(self, canvas, x, y, diameter, xvelocity, yvelocity, color):
+        self.canvas = canvas
+        # the following line of code creates the ball
+        self.image = canvas.create_oval(x, y, diameter, diameter, fill=color)
+        self.xvelocity = xvelocity
+        self.yvelocity = yvelocity
+```
+Don't forget to import this class in your main file!
+
+4.
+Inside the class, create a method for moving the ball:
+```
+def move(self):
+    coordinates = self.canvas.coords(self.image)
+    self.canvas.move(self.image, self.xvelocity, self.yvelocity)
+```
+
+5.
+Create barriers to make the ball bounce in the x axis:
+```
+def move(self):
+        coordinates = self.canvas.coords(self.image)
+
+        if coordinates[2] >= (self.canvas.winfo_width() or coordinates[0] < 0):
+            self.xvelocity = - self.xvelocity
+
+        self.canvas.move(self.image, self.xvelocity, self.yvelocity)
+```
+The coordinates is used on index 2 because there are four coordinates. The first two are the x and y of the left side of the ball, and the last two are the x and y of the right side of the ball. So, when the x of the right side of the ball touches the wall, or the x of the left side of the ball touches the wall, the velocity will be inverted.
+
+The self.canvas.winfo_width() is a function that returns the width of the canvas.
+
+6.
+Let's create barriers for the y axis now:
+```
+def move(self):
+        coordinates = self.canvas.coords(self.image)
+
+        if coordinates[2] >= self.canvas.winfo_width() or coordinates[0] < 0:
+            self.xvelocity = - self.xvelocity
+
+        if coordinates[3] >= self.canvas.winfo_height() or coordinates[1] < 0:
+            self.yvelocity = - self.yvelocity
+        
+        self.canvas.move(self.image, self.xvelocity, self.yvelocity)
+```
+
+7.
+Create more balls. Remember that you'll have to go to the main file to create more balls, not to the Ball class. Create the instance of the ball and use the move method inside a while loop:
+```
+volley_ball = Ball(canvas, 0, 0, 100, 13, 10, "blue")
+tennis_ball = Ball(canvas, 0, 0, 50, 4, 3, "yellow")
+
+while True:
+    volley_ball.move()
+    tennis_ball.move()
+    window.update()
+    time.sleep(0.1)
+```
+
+
+#
+Animations
+For this, you'll need to import the time module as well.
+
+1.
+Create a constant for the width and height of the canvas.
+```
+WIDTH = 500
+HEIGHT = 500
+```
+
+2.
+Create a canvas and use the width and height constants:
+```
+canvas = tk.Canvas(root, width=WIDTH, height=HEIGHT)
+canvas.pack()
+```
+
+3.
+Create a photoimage of the image you want to move and add it to the canvas:
+```
+photo_image = tk.PhotoImage(file="programas/study/animations/alien.png")
+alien = canvas.create_image(0, 0, image=photo_image, anchor="nw")
+```
+
+4.
+Create a while loop, get the coords of the image and update the program:
+```
+while True:
+    coordinates = canvas.coords(alien)
+    root.update()
+    time.sleep(0.1)
+```
+The canvas.coords() returns a list with the x and y coordinates.
+
+5.
+Now you need to give velocity to the image. Create the x and y velocity variables:
+```
+xvelocity = 1
+yvelocity = 1
+```
+
+6.
+Use the move function to move the image. You'll need to do it inside the while loop:
+```
+while True:
+    coordinates = canvas.coords(alien)
+    canvas.move(alien, xvelocity, yvelocity)
+    root.update()
+    time.sleep(0.1)
+```
+The image will go on indefinitely.
+
+7.
+We want to make the image bounce on the walls. We will need to add some if statements to our while loop. First, let's make it bounce on the right and left walls:
+```
+while True:
+    coordinates = canvas.coords(alien)
+
+    # coordinates[0] stands for the x coords
+    if coordinates[0] >= WIDTH or coordinates[0] < 0:
+        # This will make xvelocity receive it's opposite number
+        xvelocity = -xvelocity
+    
+    canvas.move(alien, xvelocity, 0)
+    root.update()
+    time.sleep(0.01)
+```
+This will make the image bounce horizontally, but you're going to notice that the image will disappear for a moment before bouncing back. We need to factor in the width of the image as well. So we need to create two variables. Do this before the while loop, and edit the if statement:
+```
+# Returns the width of the image
+image_width = photo_image.width()
+# Returns the height of the image
+image_height = photo_image.height()
+
+while True:
+    coordinates = canvas.coords(alien)
+    if coordinates[0] >= (WIDTH - image_width) or coordinates[0] < 0:
+        xvelocity = -xvelocity
+    
+    canvas.move(alien, xvelocity, 0)
+    root.update()
+    time.sleep(0.01)
+```
+
+8.
+Now let's write the if statement for our y velocity:
+```
+while True:
+    coordinates = canvas.coords(alien)
+    if coordinates[0] >= (WIDTH - image_width) or coordinates[0] < 0:
+        xvelocity = -xvelocity
+    
+    if coordinates[1] >= (HEIGHT - image_height) or coordinates[1] < 0:
+        yvelocity = -yvelocity
+    
+    canvas.move(alien, xvelocity, yvelocity)
+    root.update()
+    time.sleep(0.01)
+```
+You can change the xvelocity and yvelocity to make the path more unpredictable.
+
+9.
+You can add a background image.
+```
+background_photo = tk.PhotoImage(file="programas/study/animations/space.png")
+space = canvas.create_image(0, 0, image=background_photo, anchor="nw")
+```
+Make sure you add this image above other images on the canvas.
+
+
+
+#
+Move_images
+
+First we'll learn how to move a widget within a window, then we'll learn how to move an image on a canvas.
+
+1.
+Create an image:
+```
+ball = tk.PhotoImage(file="programas/study/move_images/ball.png")
+```
+
+2.
+Create a label and assign the image to it:
+```
+label = tk.Label(window, image=ball)
+label.place(x=0, y=0)
+```
+
+3.
+Bind the 'w' key to the window (it should be bound to the window, not to the label) and create the function:
+```
+window.bind("<w>", move_up)
+```
+
+Creating the function:
+```
+def move_up(event):
+    label.place(x=label.winfo_x(), y=label.winfo_y() - 7)
+```
+This function gets the current x position and doesn't change it, but it changes the y position, by getting the current y position and subtracting from it.
+
+4.
+Do the same for the other keys:
+```
+window.bind("<s>", move_down)
+window.bind("<a>", move_left)
+window.bind("<d>", move_right)
+```
+
+Create a function for each:
+```
+def move_down(event):
+    label.place(x=label.winfo_x(), y=label.winfo_y() + 7)
+
+def move_left(event):
+    label.place(x=label.winfo_x() - 7, y=label.winfo_y())
+
+def move_right(event):
+    label.place(x=label.winfo_x() + 7, y=label.winfo_y())
+```
+
+Repeating the process for the arrow keys:
+```
+window.bind("<Up>", move_up)
+window.bind("<Down>", move_down)
+window.bind("<Left>", move_left)
+window.bind("<Right>", move_right)
+```
+
+***
+Moving images on a canvas:
+
+1.
+Create a canvas:
+```
+canvas = tk.Canvas(window, width=500, height=500)
+canvas.pack()
+```
+
+2.
+Create an image and add it to the canvas:
+```
+ball_img = tk.PhotoImage(file="programas/study/move_images/ball.png")
+ball = canvas.create_image(0, 0, image=ball_img)
+```
+The .create_image() function adds an image to the canvas. The first two parameters are the coords, and the image= keyword argument is the name of the PhotoImage variable we created.
+
+If you execute the program, you'll notice the image is not shown propperly. To solve that, you'll need to anchor the image in the .create_image() function with the anchor= keyword argument:
+```
+ball_img = tk.PhotoImage(file="programas/study/move_images/ball.png")
+ball = canvas.create_image(0, 0, image=ball_img, anchor="nw")
+```
+
+3.
+Now we need to bind the keys to the window to move our image:
+```
+window.bind("<w>", move_up)
+window.bind("<s>", move_down)
+window.bind("<a>", move_left)
+window.bind("<d>", move_right)
+```
+
+4.
+Create the functions to move the image:
+```
+def move_up(event):
+    canvas.move(ball, 0, -10)
+
+def move_down(event):
+    canvas.move(ball, 0, 10)
+
+def move_left(event):
+    canvas.move(ball, -10, 0)
+
+def move_right(event):
+    canvas.move(ball, 10, 0)
+```
+The Canvas has a function called "move". This functions moves an image inside the canvas. The first argument is the name of the image that needs to be moved, the second is the x and the third is the y. You don't need to add the "+" sign when you want to increment the movement.
+
+
+
+#
+Drag and drop
+
+You can drag and drop all sorts of widgets, but we'll learn how to do it with labels only.
+
+1.
+Create a label and place it on the screen:
+```
+label = tk.Label(window, bg="red", width=10, height=5)
+label.place(x=0, y=0)
+```
+
+2.
+Bind the label and use the left click as the event. Create a function to drag the object:
+```
+label.bind("<Button-1>", drag_start)
+```
+
+3.
+What we need to do is to get the coordinates of where we click within the label, and assign them to a variable or attribute of our label. This will be the function to drag the label:
+```
+def drag_start(event):
+    label.startx = event.x
+    label.starty = event.y
+```
+
+4.
+Now that we figured out the x and y coordinates, we need to bind the label a second time and create another funciton:
+```
+label.bind("<B1-Motion>", drag_motion)
+```
+The "<B1-Motion>" means that this event is going to occur when we hold on the left mouse button, and then drag.
+
+5.
+This part will be a bit funky. We will need to create a new x and y coordinates. Let's define the second function:
+```
+def drag_motion(event):
+    x = label.winfo_x() - label.startx + event.x
+    y = label.winfo_y() - label.starty + event.y
+```
+The label.winfo_x() will get the top left x coordinate of our label relative to the window we are in. The label.startx is the place where we click within the label itself. The event.x is where we began dragging our widget to.
+
+6.
+Now we need to replace this label:
+```
+def drag_motion(event):
+    x = label.winfo_x() - label.startx + event.x
+    y = label.winfo_y() - label.starty + event.y
+    label.place(x=x, y=y)
+```
+
+
+***
+What if I want to do this with two labels?
+
+1.
+The method above is only compatible with one widget. In order to be able to drag multiple widgets, you'll have to add one line of code to your functions and change the label names:
+```
+def drag_start(event):
+    widget = event.widget
+    widget.startx = event.x
+    widget.starty = event.y
+```
+The widget = event.widget is going to get the widget of the event we're dealing with.
+
+2.
+Do the same for the drag_motion function:
+```
+def drag_motion(event):
+    widget = event.widget
+    x = widget.winfo_x() - widget.startx + event.x
+    y = widget.winfo_y() - widget.starty + event.y
+    widget.place(x=x, y=y)
+```
+
+
+3.
+Don't forget to bind the new label:
+```
+label2 = tk.Label(window, bg="blue", width=10, height=5)
+label2.place(x=100, y=100)
+label2.bind("<Button-1>", drag_start)
+label2.bind("<B1-Motion>", drag_motion)
+```
+
+
+#
+Mouse events
+
+It works the same as key events. The main difference is the name of the keys.
+
+Left mouse button:
+```
+window.bind("<Button-1>", do_something)
+```
+
+Left mouse click: "<Button-1>"
+Scroll wheel click: "<Button-2>"
+Right mouse click: "<Button-3>"
+
+
+*
+Show coordinates of a click:
+
+You can get the x and y value of a click:
+```
+import tkinter as tk
+
+def do_something(event):
+  print(f"You clicked at ({event.x}, {event.y}).")
+
+window = tk.Tk()
+
+window.bind("<Button-1>", do_something)  # Left mouse click
+
+window.mainloop()
+```
+
+
+*
+Release button:
+
+```
+window.bind("<ButtonRelease>", do_something)
+```
+
+*
+enter
+
+```
+window.bind("<Enter>", do_something)  # When the mouse enters the screen
+```
+
+*
+leave
+```
+window.bind("<Leave>", do_something)  # When the mouse leaves the screen
+```
+
+*
+motion
+```
+window.bind("<Motion>", do_something)  # Show constant coordinates of where the mouse moves
+```
+
+
+
+#
+Key events
+
+Using the bind() function you can trigger certain events when a key is pressed. Widgets and Windows have access to the bind() function.
+
+The bind function has two arguments: event and function.
+
+```
+window.bind("<Return>", do_something)
+```
+
+The "<Return>" means the ENTER key.
+
+*
+Creating the function:
+When you create the function, you have to set a parameter called event:
+
+```
+def do_something(event):
+    print("You did a thing!")
+```
+
+You can have the function respond to almost all keys. To do that, write key with capital k:
+```
+window.bind("<Key>", do_something)
+```
+
+
+*
+Display key pressed:
+```
+def do_something(event):
+    print(f"You pressed {event.keysym}.")
+```
+
+
+
+#
+Canvas
+
+A canvas is a widget that is used to draw graphs, plots and images in a window.
+
+*
+Create a canvas:
+
+```
+canvas = tk.Canvas(window)
+canvas.pack()
+```
+
+A rectangular area will appear on the window.
+
+
+*
+Change height and width:
+
+```
+canvas = tk.Canvas(window, height=500, width=500)
+canvas.pack()
+```
+
+
+*
+Draw a line:
+
+The top left corner of the window is (0, 0). The bottom right corner is the size you chose the height and width to be. In our case, the bottom right corner is (500, 500). When we create a line, we need a starting point, and an ending point. For example:
+
+```
+canvas = tk.Canvas(window, height=500, width=500)
+canvas.create_line(0, 0, 500, 500)
+canvas.pack()
+```
+
+This means that the line will be drawn from the top left corner to the bottom right corner of the screen.
+
+
+*
+Customize line:
+
+Changes the color of the line:
+fill="color"
+```
+canvas = tk.Canvas(window, height=500, width=500)
+canvas.create_line(0, 0, 500, 500, fill="blue")
+canvas.pack()
+```
+
+Changes the width of the line:
+width=x
+```
+canvas = tk.Canvas(window, height=500, width=500)
+canvas.create_line(0, 0, 500, 500, fill="blue", width=5)
+canvas.pack()
+```
+
+
+*
+Overlapping:
+
+The shape you created last will overlap all other shapes:
+```
+canvas = tk.Canvas(root, height=500, width=500)
+canvas.create_line(0, 0, 500, 500, fill="blue", width=5)
+canvas.create_line(0, 500, 500, 0, fill="red", width=5)
+canvas.pack()
+```
+
+The red line will be on top of the blue line.
+
+
+*
+Specifying lines:
+
+You can give names to lines if you need to call or use a graphic by its name:
+
+```
+canvas = tk.Canvas(root, height=500, width=500)
+blue_line = canvas.create_line(0, 0, 500, 500, fill="blue", width=5)
+red_line = canvas.create_line(0, 500, 500, 0, fill="red", width=5)
+canvas.pack()
+```
+
+
+*
+create_rectangle:
+
+You can set the starting and ending coordinates. The starting coodinates are for the top left of the angle, and the ending are for the bottom right.
+
+first two numbers: left and bottom
+second two number: right and top
+```
+canvas.create_rectangle(100, 200, 200, 100)
+```
+
+*
+Change color of rectangle:
+```
+canvas.create_rectangle(100, 400, 400, 100, fill="purple")
+```
+
+
+*
+create_polygon
+It is possible to create several polygon shapes using the polygon method, but for this example we will create only a triangle. The more coordinates given, the more sides the polygon will have.
+
+```
+canvas.create_polygon(250, 0, 500, 500, 0, 500, fill="yellow")
+```
+
+*
+Add outline to polygon and change its width:
+```
+canvas.create_polygon(250, 0, 500, 500, 0, 500, fill="yellow", outline="black", width=5)
+```
+
+*
+Coordinates list:
+You can pass a list as coordinates:
+
+```
+coordinates = [250, 0, 500, 500, 0, 500]
+canvas.create_polygon(coordinates, fill="yellow", outline="black", width=5)
+```
+
+
+*
+create_arc:
+An arch is an entire circle, but only a portion of it is visible.
+
+```
+canvas.create_arc(0, 0, 500, 500, width=3, fill="green")
+```
+
+*
+style
+There are three styles: "pieslice" (default), "chord" and "arc":
+
+```
+canvas.create_arc(0, 0, 500, 500, width=3, fill="green", style="chord")
+```
+
+*
+start
+Changes where in degrees the arc will start.
+
+```
+canvas.create_arc(0, 0, 500, 500, fill="green", start=90)
+```
+
+*
+extent
+Changes the extent of the arch in degrees.
+
+```
+canvas.create_arc(0, 0, 500, 500, width=3, fill="green", start=90, extent=359)
+```
+
+
+*
+create_oval:
+
+```
+canvas.create_oval(190, 190, 310, 310, fill="black")
+```
+
+
+
+#
+Progressbar
+
+In order to use the Progressbar, you'll need to import it from tkinter.ttk:
+```
+from tkinter.ttk import progressbar
+```
+
+
+*
+Add progressbar to the screen:
+```
+bar = Progressbar(window, oriend="horizontal")
+bar.pack()
+```
+
+
+*
+Change lentgh:
+```
+bar = Progressbar(window, oriend="horizontal", length=300)
+bar.pack()
+```
+
+
+*
+Fill the bar:
+
+Create a function that will do this and assign it to a button:
+```
+def fill_bar:
+    bar["value"] += 10
+```
+
+We're filling 10% (out of 100%) of the bar. It works like adding a value to a dictionary.
+
+
+*
+Filling the bar gradually:
+
+Use the after() command to fill the bar gradually.
+```
+def fill_bar():
+    if bar['value'] < 100:
+        bar.after(500, fill_bar)
+        bar['value'] += 10
+```
+
+
+
+#
+Grid
+
+The grid geometry manager organizes widgets in a table-like structure.
+
+columnspan and rowspan:
+Merges two or more cells into one:
+
+```
+title_label = tk.Label(root, text="Enter your info: ", font=("Arial", 15)).grid(row=0, column=0, columnspan=2)
+
+first_name_label = tk.Label(root,text="First name: ").grid(row=1, column=0)
+first_name_entry = tk.Entry(root).grid(row=1, column=1)
+
+last_name_label = tk.Label(root,text="Last name: ").grid(row=2, column=0)
+last_name_entry = tk.Entry(root).grid(row=2, column=1)
+```
+
+
+*
+Using expand on grid:
+
+The grid doesn't have an expand keyword argument, but we can simulate it using sticky="we".
+```
+main_frame = tk.Frame(root)
+main_frame.pack(expand=True)
+
+b1= tk.Button(main_frame, text='1').grid(row=0, column=0)
+b2= tk.Button(main_frame, text='2').grid(row=0, column=1, sticky='we')
+b3= tk.Button(main_frame, text='3').grid(row=0, column=2)
+b4 = tk.Button(main_frame, text="Button").grid(row=1, column=1)
+```
+
+
+*
+Column weight and row weight
+
+The weight is the amount of space that the widget will take. 
+
+```
+window.columnconfigure(0, weight=1)
+window.columnconfigure(1, weight=2)
+window.columnconfigure(2, weight=1)
+```
+
+This means that the column 1 will take 50% of the space, while column 0 and 2 will take 25% each.
+
+column 0 received weight 1
+column 1 received weight 2
+column 2 received weight 1
+
+1 + 2 + 1 = 4.
+1 = 25% of 4.
+2 = 50% of 4.
+
+another example:
+column 0 received weight 1
+column 1 received weight 3
+column 2 received weight 1
+
+1 + 3 + 1 = 5
+
+1 = 20% of 5.
+3 = 60% of 5.
+
+The weight number is always summed and the sum is 100% of the screen. It works the same for the rowconfigure.
+
+
+
+#
+Pack
+
+Packer options:
+
+
+anchor:
+Anchor type. Denotes where the packer is to place each slave in its parcel.
+
+Example:
+```
+button = tk.Button(text="HAHA")
+button.pack(anchor="w", side='bottom')
+```
+
+Sides accepted: 'n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw', or 'center'
+post script: all sides that have 's' and 'n' might not work, but you can conbine anchor with side and place the widget wherever you want.
+
+
+*
+expand:
+
+Places the widget in the center of the frame. Makes the widget take all the available space.
+Values accepted: 1 or 0.
+
+```
+button = tk.Button(text="HAHA")
+button.pack(expand=1)
+```
+
+
+*
+fill: 
+Make the widget fill the screen. Note that it will only fill the y axis if the expand is set to 1.
+Values accepted: 'x', 'y', 'none', 'both'
+
+```
+button = tk.Button(text="HAHA")
+button.pack(fill='both', expand=1)
+```
+
+
+*
+ipadx and ipady
+
+The distance - designating internal padding on each side of the slave widget. The pack method doesn't have the width and height keyword argumants, so this is a way to change the size of the widget.
+```
+button = tk.Button(text="HAHA")
+button.pack(ipadx=100, ipady=100)
+```
+
+
+*
+side
+
+The side the widget will be placed at.
+Legal values are: "left", "right", "top", "bottom"
+```
+button = tk.Button(text="HAHA")
+button.pack(ipadx=100, ipady=100, side='bottom')
+```
+
+
+
+#
+Window Tabs (ttk.Notebook)
+
+It is a widget that manages a collection of windows/displays. Typically, a child pane is a Frame object.
+
+First, create a Notebook and display it on the screen:
+```
+import tkinter as tk
+from tkinter import ttk
+
+root = tk.Tk()
+
+notebook = ttk.Notebook(root)
+notebook.pack()
+
+root.mainloop()
+```
+
+
+Second, create the frames using the notebook as their parent. Place them on the notebook:
+```
+frame1 = tk.Frame(notebook)
+frame1.pack()
+frame2 = tk.Frame(notebook)
+frame2.pack()
+```
+
+
+Third, add the frames to the notebook:
+```
+notebook.add(frame1, text="General Information")
+notebook.add(frame2, text="Profile")
+```
+
+
+*
+Make the tabs better:
+
+The tabs will be little and they will be in the middle of the screen. You can use a couple of keyword arguments on the pack() method to make your notebook look better. Here's the complete code with the frames well placed:
+
+```
+import tkinter as tk
+from tkinter import ttk
+
+root = tk.Tk()
+root.geometry("400x300")
+
+notebook = ttk.Notebook(root)
+notebook.pack(pady=10, expand=True)
+
+frame1 = tk.Frame(notebook, width=400, height=280)
+frame1.pack(fill="both", expand=True)
+frame2 = tk.Frame(notebook, width=400, height=280)
+frame2.pack(fill="both", expand=True)
+
+notebook.add(frame1, text="General Information")
+notebook.add(frame2, text="Profile")
+
+root.mainloop()
+```
+
+
+*
+Notebook methods:
+
+add(child, **kwargs) - Adds a child widget to a window. The **kwargs argument is one or more options. Here are the important ones:
+  - The child is a widget to add to the notebook.
+  - The text option specifies the label that appears on the tab.
+  - The image option specifies the image to be displayed on the tab.
+  - If you use both text and image options, you need to use the compound option.
+  - The underline option takes zero or positive integer. It specifies the character at a position of the text on the tab to be underlined.
+
+hide(tabId) - temporarily removes the tab identified by the tabId from the Notebook. Tabs has a zero-based index. It means that the first tab starts at zero. To show the tab, you need to call the add() method again. There's no corresponding show() method.
+
+forget(child) - permanently removes the specified child widget from the notebook.
+
+
+
+#
+Open a new window
+
+There are two ways to create new windows using tkinter:
+
+TopLevel():
+A new window "on top" of other windows. It's usually linked to a "bottom" window. If you close the bottom window, the top window will also close. If you close the top window, only the top window will be closed.
+
+```
+def create_dependent():
+    new_window = tk.Toplevel()
+    new_window.mainloop()  # The window can be created without this
+```
+
+Tk():
+A new independent window.
+
+```
+def create_independent():
+    new_window = tk.Tk()
+    new_window.mainloop()  # The window can be created without this
+```
+
+
+
+#
+Frames
+
+A frame is a rectangular container to group and hold widgets.
+
+Create a frame and place a frame:
+```
+frame = tk.Frame(window)
+frame.pack()
+```
+
+
+
+#
+Menu
+
+Create a menu bar and assign it to the menu option of the root window:
+
+```
+menubar = tk.Menu(root)
+root.config(menu=menubar)
+```
+
+Note that the top-level window can have only one menu bar.
+The menubar has to be assigned to the menu keyword argument of the .config() or it will not be displayed.
+
+
+*
+Create a file menu whose container is the menubar:
+
+```
+file_menu = tk.Menu(menubar)
+```
+
+
+*
+Add the command exit:
+
+```
+file_menu.add_command(
+    label="Exit",
+    command=root.destroy
+)
+```
+
+The root.destroy will close the window when clicked.
+You can add as many commands as necessary.
+
+
+
+*
+Add the file menu to the menubar:
+
+```
+menubar.add_cascade(
+    label="File",
+    menu=file_menu,
+    underline=0
+)
+```
+
+The underline option allows you to create a keyboard shortcut. It specifies the character position that should be underlined. The character at position 0 in the string is F. You can select it by using the Alt+F keyboard shortcut.
+
+
+* 
+Remove dashed line:
+
+On the Menu you can set the tearoff to False:
+
+```
+file_menu = tk.Menu(menubar, tearoff=False)
+```
+
+
+*
+Add separator:
+
+```
+file_menu.add_command(label='New')
+file_menu.add_command(label='Open...')
+file_menu.add_command(label='Close')
+file_menu.add_separator()
+```
+
+Adds a separator between the current and next options.
+
+
+
+*
+Create a submenu:
+
+First create the submenu and instead of using the menubar, use the file_menu you want:
+
+```
+sub_menu = Menu(file_menu, tearoff=0)
+```
+
+Then, add it to the cascade of the menu you want instead of adding it to the menubar:
+
+```
+file_menu.add_cascade(label="Preferences", menu=sub_menu)
+```
+
+
+
+#
+File Dialog Save
+
+Import it from tkinter:
+
+```
+from tkinter import filedialog
+```
+
+
+
+*
+asksaveasfile()
+
+Assign this to a variable and this will create a file.
+
+```
+def save_file():
+    file = filedialog.asksaveasfile()
+```
+
+This will create a file in the desired directory, but the file will have no extension and no text in it. You'll have to add more options.
+
+Adding more options:
+```
+def save_file():
+    file = filedialog.asksaveasfile(defaultextension=".txt", 
+                                    filetypes=[("text file", ".txt"),
+                                               ("HTML file", ".html"),
+                                               ("readme file", ".md")
+                                               ("all files", ".*")]
+    )
+    filetext = str(text_area.get("1.0", "end"))
+    file.write(filetext)
+    file.close()
+```
+
+Tip: If the user does not choose a location and just closes the window, an exception will be raised. In order to prevent this, type this code before writing the file:
+
+```
+def save_file():
+    file = filedialog.asksaveasfile(defaultextension=".txt", 
+                                    filetypes=[("text file", ".txt"),
+                                               ("HTML file", ".html"),
+                                               ("readme file", ".md"),
+                                               ("all files", ".*")]
+    )
+    if file is None:  # This will prevent an exception raising
+        return
+    filetext = str(text_area.get("1.0", "end"))
+    file.write(filetext)
+    file.close()
+```
+
+
+
+#
+File Dialog Open
+
+Import it from tkinter:
+
+```
+from tkinter import filedialog
+```
+
+
+
+*
+askopenfilename()
+
+This function returns a string with the desired path.
+
+Here's a function that reads a text file:
+```
+def open_file():
+    file_path = filedialog.askopenfilename()
+    file = open(file_path, 'r')
+    print(file.read())
+    file.close()
+```
+
+
+
+*
+Setting an initial path
+
+This will make the tab open on a predefined path.
+
+```
+def open_file():
+    file_path = filedialog.askopenfilename(initialdir="C:\\Users\\Micro\\Desktop\\curso desenho")
+    file = open(file_path, 'r')
+    print(file.read())
+    file.close()
+```
+
+
+
+*
+filetypes
+
+This limits the filetypes the user can choose. You can send tuples to this keyword argument. The tuple should have two values: the option the user will see and the extension of the file.
+```
+def open_file():
+    file_path = filedialog.askopenfilename(
+        filetypes=(("text files", "*.txt"),
+                   ("all files", "*.*"))
+        )
+    file = open(file_path, 'r')
+    print(file.read())
+    file.close()
+```
+
+
+
+#
+Text Widget
+
+Functions like a text area where you can enter multiple lines of text.
+
+Creating a text area:
+```
+text_area = tk.Text(root)
+text_area.pack()
+```
+
+Getting the text from the Text Widget:
+```
+def submit():
+    user_text = text_area.get("1.0", "end")
+    print(user_text)
+```
+
+The get method needs an index for the beginning and one for the end. The "1.0" means first line, character 0, the "end" means the end of the document. 
+
+
+
+*
+Height and width:
+
+The text area size corresponds directly with the font size. This means that if the font is large, the window will be as well. You can limit the width and height of the window using characters and lines as a measuring tool:
+
+```
+text_area = tk.Text(
+    root, 
+    bg="light yellow",
+    font=("Ink Free",  20),
+    height=10,
+    width=72
+)
+text_area.pack()
+```
+
+The height is the amount of lines, the width is the amount of characters per line.
+
+
+
+*
+Padding:
+
+You can add pad so that the text doesn't touch the borders:
+
+```
+text_area = tk.Text(
+    root, 
+    padx=10,
+    pady=10
+)
+text_area.pack()
+```
+
+
+
+#
+Colorchooser
+
+Firstly, the import colorchooser from tkinter:
+
+```
+from tkinter import colorchooser
+```
+
+You need to import it because it's a submodule of tkinter.
+
+
+*
+askcolor()
+
+The askcolor() function returns a tuple with the hex color and another tuple containing the RGB value of the chosen color.
+
+Here's a function to print the hex value from the chosen color:
+```
+def click():
+    color = colorchooser.askcolor()[1]
+    print(color)
+```
+
+
+
+#
+Messagebox
+
+Import messagebox from tkinter
+
+```
+from tkinter import messagebox
+```
+
+
+
+*
+Displaying an info box:
+
+```
+def click():  # function assigned to a button
+    messagebox.showinfo(title="Infobox",
+                        message="This message will be displayed to the user.")
+```
+
+
+
+*
+Displaying a warning box:
+
+```
+def click_warning():  # function assigned to a button
+    messagebox.showwarning(title="WARNING",
+                           message="DO SOMETHING!")
+```
+
+
+
+*
+Displaying an error box:
+
+```
+def click_error():  # function assigned to a button
+    messagebox.showerror(title="ERROR!",
+                         message="Something ain't right")
+```
+
+
+
+*
+Ask OK Cancel:
+This messagebox will have two options: OK and Cancel. It returns True or False, and you can place it inside an if statement if you like.
+
+```
+def click_ask_ok_cancel():  # function assigned to a button
+    answer = messagebox.askokcancel(title="Title",
+                           message="Ok or Cancel?")
+    if answer:
+        print("You clicked OK")
+    else:
+        print("You clicked Cancel :(")
+```
+
+
+
+*
+Ask Retry Cancel:
+This one works the same as the previous one.
+
+```
+def click_ask_retry_cancel():  # function assigned to a button
+    answer = messagebox.askretrycancel(title="Title",
+                                       message="Retry or Cancel?")
+    if answer:
+        print("You clicked Retry")
+    else:
+        print("You clicked Cancel")
+```
+
+
+
+*
+Ask Question:
+It works the same as the privous ones, but the difference is that it returns a string instead of a boolean value.
+
+```
+def click_ask_question():  # function assigned to a button
+    answer = messagebox.askquestion(title="Ask Question",
+                                    message="Do you like cake?")
+    print(answer)
+```
+
+
+
+*
+Ask Yes No Cancel:
+It can return three values: True, False or None.
+
+```
+def click_ask_yes_no_cancel(): # function assigned to a button
+    answer = messagebox.askyesnocancel(title="ask Yes No Cancel",
+                                       message="Do you know the way?")
+    print(answer)
+    if answer:
+        print("Cool")
+    elif answer == False:  # If you use the 'not' keyword, it won't work
+        print("Uncool")
+    elif answer == None:
+        print("Ok then.")
+```
+
+You can change the default icon using the 'icon' keyword argument. You can choose among "warning", "info" and "error".
+
+```
+def click_ask_yes_no_cancel():
+    answer = messagebox.askyesnocancel(title="ask Yes No Cancel",
+                                       message="Do you know the way?",
+                                       icon="info")
+```
+
+
+
+#
+Listbox
+
+A listbox is a listing of selectable text items within it's own container.
+
+Creating a listbox:
+
+```
+listbox = tk.Listbox(window)
+listbox.pack()
+```
+
+
+
+*
+Adding items:
+
+The first argument is the index, and the second is the name. Items should be added after the listbox was declared.
+
+```
+listbox.insert(1, "pizza")
+```
+
+
+
+*
+Changing the size:
+
+The size can be changed by choosing a font and a fontsize:
+
+```
+listbox = tk.Listbox(window,
+                     bg="#f7ffde",
+                     font=("Constantia", 35))
+listbox.pack()
+```
+
+
+
+*
+Changing width and height:
+
+```
+listbox = tk.Listbox(window,
+                     width=12,
+                     height=8)
+listbox.pack()
+```
+
+Adjusting the height dynamically:
+After all desired items are inserted:
+
+```
+listbox.config(height=listbox.size())
+```
+
+
+
+*
+Getting values from listbox:
+
+The curselection (current selection) method is going to give you the current selection from the listbox.
+
+```
+value = listbox.get(listbox.curselection())
+```
+
+
+
+*
+Selecting multiple items from the list:
+
+```
+listbox = tk.Listbox(window,
+                     font=("Constantia", 35),
+                     selectmode="multiple")
+listbox.pack()
+```
+
+Note that if selectmode is set to "multiple", the value obtained from .curselection will be an interable, which means that you'll have to put it in a list in order to use it for the purpose of showing it. This would be the code to put the values from a listbox into a list and showing it to the user:
+
+```
+def submit():
+    food = []
+
+    for index in listbox.curselection():
+        food.insert(index, listbox.get(index))
+    
+    print("You have ordered: ")
+    for item in food:
+        print(item, end=', ')
+
+// curselection returns the index of the selected item.
+```
+
+Code to delete multiple objects: 
+
+```
+def delete():
+    for i in reversed(listbox.curselection()):
+        listbox.delete(i)
+
+    listbox.config(height=listbox.size())
+
+// It needs to be reversed so that the correct items are deleted.
+```
+
+
+
+#
+Scale
+
+```
+scale = tk.Scale(window,
+                 from_=0,
+                 to=100)
+scale.pack()
+```
+
+The from_= and to= keyword arguments set the range of the scale. Don't forget the underscore after from. You can flip the scale by adding 100 in front of the from_ and 0 in front of the to.
+
+
+
+*
+Changing size:
+
+Use the length keyword argument to change the size of your scale:
+
+```
+scale = tk.Scale(window,
+                 from_=0,
+                 to=100,
+                 length=600)  # 600 pixels
+scale.pack()
+```
+
+
+
+*
+Changing orientation:
+
+```
+scale = tk.Scale(window, 
+                 from_=100, 
+                 to=0,
+                 orient="horizontal")
+scale.pack()
+```
+
+The orientation can be "vertical" (default) or "horizontal".
+
+
+
+*
+Adding tick intervals:
+
+These tick intervals are numeric numbers on the scale.
+
+```
+scale = tk.Scale(window, 
+                 from_=100, 
+                 to=0,
+                 tickinterval=10)  # At every ten ticks a number will be displayed
+```
+
+
+
+*
+Showing value:
+
+The showvalue= keyword argument can be set to 0 in order to NOT display any values on the scale slider:
+
+```
+scale = tk.Scale(window, 
+                 from_=100, 
+                 to=0,
+                 tickinterval=10,
+                 showvalue=0)
+```
+
+
+
+*
+Setting a default value for the scale to start on:
+
+```
+scale = tk.Scale(window, 
+                 from_=100, 
+                 to=0)
+
+scale.set(100)  # The scale will start at 100
+```
+
+
+
+*
+Trough color:
+
+```
+scale = tk.Scale(window, 
+                 troughcolor="#69EAFF")
+```
+
+
+
+#
+Radiobuttons
+
+Radio buttons are similar to checkboxes, but you have to select one from a group. They have to be in a for loop in order to be dislayed. In order to make several radiobuttons belong to the same group, use the same variable in all of them.
+
+``` 
+import tkinter as tk
+
+food = ["Pizza", "Hamburger", 'Hotdog']
+
+window = tk.Tk()
+
+x = tk.IntVar()
+
+for index in range(len(food)):
+    radiobutton = tk.Radiobutton(window, 
+                                 text=food[index],  # Name of the radio button
+                                 variable=x,  # The same variable that will group them
+                                 value=index)  # Assigns a different value to each button
+    radiobutton.pack()
+
+window.mainloop()
+```
+
+
+
+*
+Adding images:
+
+To add images to your radio buttons, place them in a list and add them to your button with the image keyword argument.
+
+```
+import tkinter as tk
+
+food = ["Pizza", "Hamburger", 'Hotdog']
+
+window = tk.Tk()
+
+x = tk.IntVar()
+
+// Declaring images
+pizza_image = tk.PhotoImage(file='programas\\study\\radiobuttons\\pizza.png')
+hamburger_image = tk.PhotoImage(file='programas\\study\\radiobuttons\\hamburger.png')
+hotdog_image = tk.PhotoImage(file='programas\\study\\radiobuttons\\hotdog.png')
+
+//The list of images
+food_images = [pizza_image, hamburger_image, hotdog_image]
+
+for index in range(len(food)):
+    radiobutton = tk.Radiobutton(window, 
+                                 text=food[index],
+                                 font=('Arial', 20),
+                                 variable=x,
+                                 value=index,
+                                 padx=25,
+                                 image=food_images[index],  # The image for each button
+                                 compound='left')
+    radiobutton.pack(anchor='w')
+
+window.mainloop()
+```
+
+
+
+*
+Functions for radio buttons:
+
+Declaring a function for your radio button:
+```
+...
+def order():
+    ordered = ['You ordered a pizza!', 'You ordered a hamburger!', 'You ordered a hotdog!']
+    print(ordered[x.get()])
+...
+for index in range(len(food)):
+    radiobutton = tk.Radiobutton(window, 
+                                 text=food[index],
+                                 variable=x,
+                                 value=index,
+                                 command=order)
+    radiobutton.pack(anchor='w')
+...
+```
+
+
+
+#
+Checkbuttons
+
+Making a checkbutton:
+
+```
+check_button = tk.Checkbutton(window, text='I agree.')
+check_button.pack()
+```
+
+
+
+*
+Manipulating the variable:
+
+The variable of a check button by default store a one or a zero. If you want your variable to store an integer, use the tk.IntVar() function. If you want it to store a string, use the tk.StringVar(). If you want to store a boolean value: tk.Booleanvar().
+
+```
+x = tk.IntVar()  # The ckeckbutton will return an int
+check_button = tk.Checkbutton(window, text='I agree',
+                              variable=x)
+```
+
+Don't forget to use the .get() method if you want to know the value of the variable.
+
+```
+def test():
+    print(x.get())
+```
+
+
+
+*
+Changing the on and off values
+
+If you want to change what value the check button will return, you can use the onvalue and offvalue keyword arguments.
+
+```
+x = tk.IntVar()
+
+check_button = tk.Checkbutton(window,
+                              text='I agree',
+                              variable=x,
+                              onvalue=1,
+                              offvalue=2)
+```
+
+
+
+*
+Adding images
+
+You can do the same process you would in labels.
+
+
+
+#
+Entry
+
+Making an entry box:
+
+```
+import tkinter as tk
+
+window = tk.Tk()
+
+entry = tk.Entry(window,
+                 font=('Arial', 50))
+entry.pack()
+
+window.mainloop()
+```
+
+By using the font= keyword argument, you can change the size of the entry box.
+
+
+
+*
+Getting the input from entry and printing it:
+
+```
+import tkinter as tk
+
+
+def submit():
+    username = entry.get()
+    print(f"Hello, {username}!")
+
+
+window = tk.Tk()
+
+entry = tk.Entry(window,
+                 font=('Arial', 50))
+entry.pack(side='left')
+
+submit_button = tk.Button(window,
+                          text='Submit',
+                          command=submit)
+submit_button.pack(side='right')
+
+window.mainloop()
+```
+
+You can also change the background and foreground of your entrybox.
+
+
+
+*
+Adding a default text:
+
+You can set a default text for your entrybox. Use the insert method. The first parameter is the index wich should be 0 if you want your text in the beginning. The next argument is the string with the default text you want displayed.
+
+```
+window = tk.Tk()
+
+entry = tk.Entry(window,
+                 font=('Arial', 30))
+entry.insert(0, 'Username')
+
+entry.pack(side='left')
+
+window.mainloop()
+```
+
+
+
+*
+Changing the state of your entrybox:
+You can either do this on the constructor or on the config method.
+
+```
+import tkinter as tk
+
+
+def submit():
+    print(entry.get())
+    entry.config(state='disabled')
+    button.config(state='disabled')
+
+
+window = tk.Tk()
+
+entry = tk.Entry(window, font=('Arial', 20))
+entry.insert(0, 'Type your username')
+entry.pack(side='left')
+
+button = tk.Button(window, text='Submit', font=('Arial', 15), command=submit)
+button.pack(side='right')
+
+window.mainloop()
+```
+
+
+
+*
+Showing one character in place of another:
+
+This is useful if your typing a password.
+
+Use the keyword argument show and choose the character you want to show.
+
+```
+passwd_entry = tk.Entry(window, font=('Arial', 25), show='*')
+passwd_entry.pack()
+```
+
+
+
+#
+Buttons:
+
+Example of a button:
+
+```
+import tkinter as tk
+
+window = tk.Tk()
+
+button = tk.Button(window,
+                text='Click me')
+button.pack()
+
+window.mainloop()
+```
+
+
+
+*
+Choosing actions for the button:
+Use the command= keyword argument and pass a function to it in order to create an action for your button. Don't forget to pass the function without the parenthesis.
+
+```
+import tkinter as tk
+
+def click():
+    print('You clicked me!')
+
+
+window = tk.Tk()
+
+button = tk.Button(window,
+                   text='Click me',
+                   command=click)
+button.pack()
+
+window.mainloop()
+```
+
+
+
+*
+Changing the button's appearance:
+
+```
+import tkinter as tk
+
+window = tk.Tk()
+
+button = tk.Button(window,
+                   text='Click me!',
+                   font=('Comic Sans', 30),
+                   fg='green',
+                   bg='black',
+                   activeforeground='green',
+                   activebackground='black')
+button.pack()
+
+window.mainloop()
+```
+
+The activeforeground and activebackground refere to when the button is clicked. Normaly, both the foreground and background colors change. You can choose what colors you want them to change to. 
+
+
+
+*
+Disabling a button:
+import tkinter as tk
+
+```
+window = tk.Tk()
+
+button = tk.Button(window,
+                   text='Click me!',
+                   state='disabled')
+button.pack()
+
+window.mainloop()
+```
+
+In the state keyword argument you can choose between 'normal', 'active' and 'disabled'.
+
+
+
+#
+Label:
+
+A label is an area widget that holds text and/or an image within a window.
+
+To create a label, create a variable and attribute the Label class to it. As the first argument, pass the container, which is the window. The Label class is full of keyword arguments that let you customize your labels. Let's learn the text= keyword argument, which places a text on the label:
+
+```
+from tkinter import *
+
+window = Tk()
+
+label = Label(window, text="Hello, World!")
+
+window.mainloop()
+```
+
+If you run the program, you're going to notice that this by itself does nothing. You'll need to make this appear on the screen. To do that, use the pack() method on your label variable:
+
+```
+from tkinter import *
+
+window = Tk()
+
+label = Label(window, text="Hello, World!")
+label.pack()
+
+window.mainloop()
+```
+
+By default, this will place our label on the top center of our window. But if we want to be more specific, we can use the place() method instead of pack():
+
+```
+from tkinter import *
+
+window = Tk()
+
+label = Label(window, text="Hello, World!")
+label.place(x=0, y=0)
+
+window.mainloop()
+```
+
+The x and y are the coordinates (pixel location) of where we want our label to be placed at.
+
+
+
+*
+Changing the style of your text label:
+
+There are other keyword arguments you can use to stylize your text. Some of them are: font=, fg=, bg= and etc.
+
+Changing the font:
+Use the font keyword argument. The first parameter is the chosen font, the second is the size and the third is the style.
+
+```
+from tkinter import *
+
+window = Tk()
+
+label = Label(window, text="Hello, World!", font=('Arial', 
+                                                  40, 'bold'))
+label.pack()
+
+window.mainloop()
+```
+
+Changing the foreground color:
+Use the fg= to change the color of your font. You can choose a name or the hex value of your color:
+
+```
+from tkinter import *
+
+window = Tk()
+
+label = Label(window, 
+              text="Hello, World!", font=('Arial', 40, 'bold'),
+              fg='green')
+label.pack()
+
+window.mainloop()
+```
+
+You can do the same to change the background color. Write the keyword argument bg= and choose your color.
+
+```
+label = Label(window, 
+              text="Hello, World!", font=('Arial', 40, 'bold'),
+              fg='green', bg='black')
+```
+
+Changing relief:
+This will make your label seems sunken or raised:
+
+```
+label = Label(window, 
+              text="Hello, World!", 
+              font=('Arial', 40, 'bold'),
+              relief=RAISED,  # no quotes
+              bd=10,  # reliefs border. The greater the number, the more raised it will appear to be
+              padx=20,  # Horizontal distance between the text and the border of the label
+              pady=20,  # Vertical distance between the text and the border of the label
+)  
+```
+
+
+
+*
+Adding images to your labels:
+
+First, you'll need to create a variable to store your photo. Use the PhotoImage() function with the keyword argument file= and pass the path of the file. Then, use the image= keyword argument on your Label class and pass the image variable.
+
+```
+from tkinter import *
+
+window = Tk()
+
+photo = PhotoImage(file='path\\of\\the\\file.png')
+label = Label(window, image=photo)
+
+window.mainloop()
+```
+
+If you also have a text in your label, you'll notice that the image will be in the same place as your text. However, if you want, you can choose a direction of where you want the image to be placed relative to the text that you have, using the keyword argument compound=. You can choose 'bottom', 'left', 'right' or 'top'.
+
+```
+from tkinter import *
+
+window = Tk()
+
+photo = PhotoImage(file='path\\of\\the\\file.png')
+label = Label(window, 
+              text='Hello!', 
+              image=photo, 
+              compound='bottom')
+
+window.mainloop()
+```
+
+Keep in mind that the size of labels and many other widgets will increase to accommodate the size of all the components that's contained within them.
+
+
+
+#
+Changing the background color of your window:
+
+Everytime you want to make a change to your window, you can use the config() function. This function has a keyword argument called "background". Use it to change the background to something you want. You can type the hex value of the color, or just the name of the color.
+
+```
+from tkinter import *
+
+window = Tk()
+
+window.title("My Window")
+window.config(background="#633484")
+
+window.mainloop()
+
+```
+
+
+#
+Changing the icon of your program:
+
+Use the PhotoImage() function to make your icon. Create a variable and assign PhotoImage() with the path of the file like this:
+
+```
+window = Tk()
+
+window.title("My Window")
+icon = PhotoImage(file='path\\of\\the\\file.png')
+
+window.mainloop()
+```
+
+Don't forget to type the key argument file=''.
+
+If the image is in the same directory of your program, you can just type the name of the file.
+
+Then, you're going to use the iconphoto() method, passing the variable which you created:
+
+
+```
+window = Tk()
+
+window.title("My Window")
+
+icon = PhotoImage(file='path\\of\\the\\file')
+window.iconphoto(True, icon)
+
+window.mainloop()
+```
+
+
+
+#
+Changing the title of your window:
+
+Using the title() method you can change the title of your window, which by default is Tk:
+
+```
+window = Tk()
+
+window.geometry("400x400")
+window.title("My Window")
+
+window.mainloop()
+```
+
+
+
+#
+Setting the geometry of a window:
+
+The function geometry() allows us to choose what resolution we want our window to have. Pass the width and height, but make sure it's between quotes. The width and height are separated by an x, and no white-spaces are used.
+
+```
+window = Tk()
+
+window.geometry("400x400")
+
+window.mainloop()
+```
+
+
+
+#
+Creating a window:
+
+Having imported all from tkinter module, we need to instantiate our window, to do that, we can do the following:
+
+```
+window = Tk()
+```
+
+Now, we have an instance of a window, however, if we run the program, the window will not show up. In order for it to appear, we need to write a method called mainloop, which places the window on the screen:
+
+```
+window = Tk()
+window.mainloop()
+```
+
+The mainloop function will be the last function you want in your program, so always leave it at the bottom.
+
+
+
+#
+Difference between widgets and windows:
+
+Widgets: GUI elements (buttons, textboxes, labels, images)
+Windows: Serves as a container to hold or contain these widgets
