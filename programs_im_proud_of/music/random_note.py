@@ -27,7 +27,10 @@ print("Type 'exit' to exit the program. "
       "Press ENTER to display a note.")
 
 while True:
-    sleep(3)
+    answer = input()
+    
+    if answer.lower() == "exit":
+        break
     
     last = current
     current = nex
