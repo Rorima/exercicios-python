@@ -1,0 +1,13 @@
+Create a Python program that counts lines from files. It goes inside directories and counts lines from all files. There should be an option where you type the extension of the files you don't want it to enter.
+
+After some research, I found pathlib.Path, which seems to be the right library and class to make this program. Here's a tutorial on it: https://www.pythontutorial.net/python-standard-library/python-path/
+
+What I will probably need:
+Path.cwd(): Get the path of the current working directory;
+path.is_file(): Return True if a path is a file;
+path.is_dir(): Return True if a path is a directory;
+path.name: Get the file name of a path;
+path.stem: Get the file name without the extension;
+path.suffix: Get the extension of the file;
+path.iterdir(): Return a generator that yields paths;
+
