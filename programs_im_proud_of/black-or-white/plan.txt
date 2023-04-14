@@ -1,0 +1,5 @@
+Create a program that tests the user on chess table square colors. The user has to figure out if the color of that particular square is white or black.
+
+Create an algorithm to assign the colors to the coordinates and then test the user.
+
+At the end of the program, show a score. Show how many the user got right, how many they got wrong, and an option to show which ones the user got wrong.
