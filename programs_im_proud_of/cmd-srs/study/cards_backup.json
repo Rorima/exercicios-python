@@ -1,0 +1,52 @@
+{
+  "cards": [
+    {
+      "front": "\u041f\u0440\u0438\u0432\u0435\u0442!",
+      "back": "Hello!",
+      "due": 1682616822.6707158,
+      "interval": 20
+    },
+    {
+      "front": "\u0427\u0442\u043e?",
+      "back": "What?",
+      "due": 1682616823.4385839,
+      "interval": 20
+    },
+    {
+      "front": "\u041f\u0440\u0438\u0432\u0435\u0442 \u0432\u0441\u0435\u043c!",
+      "back": "Hello everyone!",
+      "due": 1682616824.2145486,
+      "interval": 20
+    },
+    {
+      "front": "\u041f\u0440\u0435\u043a\u0440\u0430\u0441\u043d\u043e \u043f\u043e\u043d\u0438\u043c\u0430\u044e.",
+      "back": "I understand perfectly.",
+      "due": 1682616824.9500716,
+      "interval": 20
+    },
+    {
+      "front": "\u041e\u043d\u0430 \u0442\u0435\u0431\u044f \u043d\u0435 \u043f\u043e\u043d\u0438\u043c\u0430\u0435\u0442.",
+      "back": "She doesn't understand you.",
+      "due": 1682616825.6539547,
+      "interval": 20
+    },
+    {
+      "front": "\u041e\u043d\u0430 \u043f\u0440\u0435\u043a\u0440\u0430\u0441\u043d\u0430.",
+      "back": "She is very beautiful.",
+      "due": 1682616826.4308155,
+      "interval": 20
+    },
+    {
+      "front": "\u041f\u0440\u0435\u043a\u0440\u0430\u0441\u043d\u0430\u044f \u0440\u0430\u0431\u043e\u0442\u0430.",
+      "back": "It's a beautiful job.",
+      "due": 1682616827.1747317,
+      "interval": 20
+    },
+    {
+      "front": "\u041a\u043e\u043d\u0435\u0447\u043d\u043e \u043c\u043e\u0436\u043d\u043e.",
+      "back": "Of course, you may.",
+      "due": 1682616827.854571,
+      "interval": 20
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+﻿Create a Spaced Repetition Software. It should be very simple.
+
+Cards and decks are stored in JSON.
+If the user knows, review it in the future.
+If the user doesn't know, review it in this session and reset time.
+Show front first, show back after the user press ENTER, and then ask if the user remembers or not.
+
+What to study:
+A date library (maybe time)
+JSON
+Learning curve
+
+What I'll probably use:
+
+time.time() → float
+Return the time in seconds since the epoch as a floating point number. The handling of leap seconds is platform dependent. On Windows and most Unix systems, the leap seconds are not counted towards the time in seconds since the epoch. This is commonly referred to as Unix time.
+
+Note that even though the time is always returned as a floating point number, not all systems provide time with a better precision than 1 second. While this function normally returns non-decreasing values, it can return a lower value than a previous call if the system clock has been set back between the two calls.
+
+The number returned by time() may be converted into a more common time format (i.e. year, month, day, hour, etc…) in UTC by passing it to gmtime() function or in local time by passing it to the localtime() function. In both cases a struct_time object is returned, from which the components of the calendar date may be accessed as attributes.
+
+Use time_ns() to avoid the precision loss caused by the float type.
+
+time.mktime(t)
+This is the inverse function of localtime(). Its argument is the struct_time or full 9-tuple (since the dst flag is needed; use -1 as the dst flag if it is unknown) which expresses the time in local time, not UTC. It returns a floating point number, for compatibility with time(). If the input value cannot be represented as a valid time, either OverflowError or ValueError will be raised (which depends on whether the invalid value is caught by Python or the underlying C libraries). The earliest date for which it can generate a time is platform-dependent.
+
+time.asctime([t])
+Convert a tuple or struct_time representing a time as returned by gmtime() or localtime() to a string of the following form: 'Sun Jun 20 23:21:05 1993'. The day field is two characters long and is space padded if the day is a single digit, e.g.: 'Wed Jun  9 04:26:40 1993'.
+
+If t is not provided, the current time as returned by localtime() is used. Locale information is not used by asctime().
+
+time.localtime([secs])
+Like gmtime() but converts to local time. If secs is not provided or None, the current time as returned by time() is used. The dst flag is set to 1 when DST applies to the given time.
+
+localtime() may raise OverflowError, if the timestamp is outside the range of values supported by the platform C localtime() or gmtime() functions, and OSError on localtime() or gmtime() failure. It’s common for this to be restricted to years between 1970 and 2038.
+
+
+https://docs.python.org/3/library/time.html#module-time
+https://docs.python.org/3/library/calendar.html#module-calendar
+https://docs.python.org/3/library/datetime.html
+
+## Brainstorm:
+The program will take the time from now and from now it's going to calculate the next time the user will review a card. When the user enters the program, the program will check if the time has expired. If so, send it for the user to review. When the user reviews the card, if the user gets it right, this same process occurs again, but with a longer period. If the user gets the card wrong, then the process resets.

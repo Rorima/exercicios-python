@@ -1,0 +1,18 @@
+{
+  "cards": [
+    {
+      "front": "\u041f\u0440\u0438\u0432\u0435\u0442 \u0432\u0441\u0435\u043c!",
+      "back": "Hello everyone!",
+      "due": 1683248393.664326,
+      "interval": 21600,
+      "delete": false
+    },
+    {
+      "front": "\u041f\u0440\u0435\u043a\u0440\u0430\u0441\u043d\u043e \u043f\u043e\u043d\u0438\u043c\u0430\u044e.",
+      "back": "I understand perfectly.",
+      "due": 1683248397.0957623,
+      "interval": 21600,
+      "delete": false
+    }
+  ]
+}

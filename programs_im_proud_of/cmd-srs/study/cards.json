@@ -1,0 +1,109 @@
+{
+  "cards": [
+    {
+      "front": "\u041f\u0440\u0438\u0432\u0435\u0442 \u0432\u0441\u0435\u043c!",
+      "back": "Hello everyone!",
+      "due": 1683142095.0233638,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u041f\u0440\u0435\u043a\u0440\u0430\u0441\u043d\u043e \u043f\u043e\u043d\u0438\u043c\u0430\u044e.",
+      "back": "I understand perfectly.",
+      "due": 1683142098.1590853,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u041e\u043d\u0430 \u0442\u0435\u0431\u044f \u043d\u0435 \u043f\u043e\u043d\u0438\u043c\u0430\u0435\u0442.",
+      "back": "She doesn't understand you.",
+      "due": 1683142102.471242,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u041e\u043d\u0430 \u043f\u0440\u0435\u043a\u0440\u0430\u0441\u043d\u0430.",
+      "back": "She is very beautiful.",
+      "due": 1683142105.3752902,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u041f\u0440\u0435\u043a\u0440\u0430\u0441\u043d\u0430\u044f \u0440\u0430\u0431\u043e\u0442\u0430.",
+      "back": "It's a beautiful job.",
+      "due": 1683142108.5031948,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u041a\u043e\u043d\u0435\u0447\u043d\u043e \u043c\u043e\u0436\u043d\u043e.",
+      "back": "Of course, you may.",
+      "due": 1683142112.815111,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u042d\u0442\u043e \u0441\u0442\u0430\u0440\u043e\u0435 \u043f\u0438\u0430\u043d\u0438\u043d\u043e.",
+      "back": "This is an old piano.",
+      "due": 1683142117.0229769,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u041e\u043d\u0430 \u0438\u0433\u0440\u0430\u0435\u0442 \u043d\u0430 \u043f\u0438\u0430\u043d\u0438\u043d\u043e.",
+      "back": "She plays the piano.",
+      "due": 1683142121.3746028,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u041c\u0443\u0436\u0447\u0438\u043d\u0430 \u0441\u0442\u0430\u0440.",
+      "back": "The man is old.",
+      "due": 1683142123.863172,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u0413\u0434\u0435 \u043e\u043d \u0436\u0438\u0432\u0451\u0442?",
+      "back": "Where does he live?",
+      "due": 1683142128.791153,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u0412\u044b \u0437\u0434\u0435\u0441\u044c \u0436\u0438\u0432\u0435\u0442\u0435?",
+      "back": "Do you live here?",
+      "due": 1683142132.454492,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u041e\u043d \u0436\u0438\u0432\u0451\u0442 \u0432 \u043f\u0443\u0441\u0442\u044b\u043d\u0435?",
+      "back": "Does he live in the desert?",
+      "due": 1683142138.0463483,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u041a\u0442\u043e \u0438\u0437\u043e\u0431\u0440\u0435\u043b \u043f\u0438\u0430\u043d\u0438\u043d\u043e?",
+      "back": "Who invented the piano?",
+      "due": 1683143419.678526,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u042d\u0442\u043e \u043c\u043e\u0439 \u0441\u0442\u0430\u0440\u044b\u0439 \u0432\u0435\u043b\u0438\u043a.",
+      "back": "This is my old bicycle.",
+      "due": 1683143443.9051661,
+      "interval": 43200,
+      "delete": false
+    },
+    {
+      "front": "\u0422\u043e\u043c \u0436\u0438\u0432\u0451\u0442 \u0432 \u0441\u0442\u0430\u0440\u043e\u043c \u0437\u0434\u0430\u043d\u0438\u0438.",
+      "back": "Tom lives in an old building.",
+      "due": 1683143452.6391387,
+      "interval": 43200,
+      "delete": false
+    }
+  ]
+}

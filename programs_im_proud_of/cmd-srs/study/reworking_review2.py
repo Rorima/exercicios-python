@@ -1,0 +1,124 @@
+"""
+Rename functions, clean the code (if possible) and take 
+this new code to cmd-srs9.py. It should be able to 
+get out of the review now, thanks to God!
+"""
+import json
+import time
+
+from os import system
+# temp = 21_600
+MIN_INTERVAL = 10
+MAX_INTERVAL = 157_788_000
+
+
+class App:
+    def __init__(self):
+        self.study = True
+        self.review1()
+
+    def count_due_cards(self, deck):
+        c = 0
+        for card in deck:
+            if time.time() >= card[1]["due"]:
+                c += 1
+
+        return c
+
+    def review1(self):
+        """Get due cards from the deck and send them to be reviewed"""
+        system("cls||clear")
+
+        study_now = []
+
+        with open("cards.json", 'r', encoding='utf-8') as f:
+            cards = json.load(f)
+            for card in cards["cards"]:
+                if time.time() >= card["due"]:
+                    study_now.append((cards["cards"].index(card), card))
+
+        self.review2(study_now)
+        self.rewrite(cards, study_now)
+
+    def review2(self, study_now):
+        """Check if there are due cards and call review3"""
+
+        while self.study:
+            if self.dues(study_now):
+                self.review3(study_now)
+            else:
+                break
+
+    def dues(self, deck):
+        """Calculate due cards"""
+        again = False
+        for card in deck:
+            if time.time() >= card[1]["due"]:
+                again = True
+                self.study = True
+                break
+            else:
+                again = False
+                self.study = False
+
+        return again
+
+    def review3(self, study_now):
+        """Review cards"""
+        for card in study_now:
+            if time.time() >= card[1]["due"]:
+                c = self.count_due_cards(study_now)
+                print(f"{c} cards to review.")
+                print()
+
+                # first view
+                print(card[1]["front"])
+                print()
+                user = input("Press ENTER to show the "
+                          "back of the card or send "
+                          "'q' to quit review mode\n")
+                
+                if user.lower() == "q":
+                    self.study = False
+                    break
+
+                system("cls||clear")
+                # second view
+                print(card[1]["front"])
+                print()
+                print(card[1]["back"])
+                print("[1] Good\n[2] Again\n")
+
+                user_choice = input(">>>")
+                while user_choice not in ('1', '2'):
+                    print("You have to choose a valid option.")
+                    user_choice = input(">>>")
+
+                # update card
+                self.update(card, user_choice)
+                system("cls||clear")
+                continue
+
+            break
+
+    def update(self, card, user_choice):
+        """Update the card with a new interval"""
+        if user_choice == "1":
+            card[1]["due"] = time.time() + card[1]["interval"]
+            card[1]["interval"] = card[1]["interval"] * 2
+        else:
+            card[1]["due"] = time.time()
+            card[1]["interval"] = MIN_INTERVAL
+
+    def rewrite(self, cards, study_now):
+        """Rewrite the deck into the json file"""
+        for s_card in study_now:
+            cards["cards"][s_card[0]]["due"] = s_card[1]["due"]
+            cards["cards"][s_card[0]]["interval"] = s_card[1]["interval"]
+
+        with open("cards.json", 'w', encoding='utf-8') as f:
+            json.dump(cards, f, indent=2)
+
+
+if __name__ == "__main__":
+    a = App()
